@@ -23,18 +23,18 @@
 <select id="goodsGetList" resultType="com.dongkoo.model.GoodsVO">
     <![CDATA[
     select * from (
-        select /*+INDEX_DESC(GD_LIST SYS_C008774) */ rownum as rn, PDNO, PD_NAME,
+        select rownum as rn, PDNO, PD_NAME,
         (select NAME_NM from NAMING where GD_LIST.PD_SCATE = NAMING.NAME_CD) PD_SCATE, PD_IMAGE, PD_MAKER, PD_NARA, PD_SIZE, PD_COLOR, PD_INPR, PD_OUTPR, PDDAY
         from GD_LIST
         where ID = #{ID}
     ]]>
-    <if test="cri.keyword != null">
-        <![CDATA[ AND PD_NAME like '%' || #{cri.keyword} || '%' ]]>
+    <if test="keyword != null">
+        <![CDATA[ AND PD_NAME like '%' || #{keyword} || '%' ]]>
     </if>
     <![CDATA[
-        AND rownum <= #{cri.pageNum} * #{cri.amount}
+        AND rownum <= #{pageNum} * #{amount}
     )
-    where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    where rn > (#{pageNum} - 1) * #{amount}
     ]]>
 </select>
   	

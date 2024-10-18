@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+* {
+	margin:0;
+	padding:0;
+}
+
+/* 화면 전체  */
+.wrapper {
+	width:100%;
+	height:100%;
+}
+
+h1 {
+	text-align:center;
+	margin-top:150px;
+}
+
+p {
+	text-align:center;
+	margin-top:50px;	
+}
+
+.info_area {
+	display:inline-block;
+	text-align:center;	
+}
+
+a.viewbtn {
+	display:inline-block;
+	text-decoration:none;
+	width:700px;
+	margin-top:50px;
+	font-weight:600;
+	text-align:center;
+	line-height:40px;
+	color:#00bfff;
+	border:solid;
+	background:white;
+}
+
+

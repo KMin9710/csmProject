@@ -1,0 +1,6 @@
+com\dongkoo\mapper\GoodsMapperTests.class
+com\dongkoo\mapper\MarketMapperTests.class
+com\dongkoo\mapper\MemberMapperTests.class
+com\dongkoo\persistence\DataSourceTest.class
+com\dongkoo\persistence\JDBCTest.class
+com\dongkoo\service\GoodsServiceTests.class
