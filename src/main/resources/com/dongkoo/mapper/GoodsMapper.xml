@@ -20,26 +20,21 @@
 	</select>
 	
 	<!-- 제품 리스트 -->
-	<select id = "goodsGetList" resultType="com.dongkoo.model.GoodsVO">
-	  	<![CDATA[
-		select * from (
-		select /*+INDEX_DESC(GD_LIST SYS_C008774*/ rownum as rn, PDNO, PD_NAME,
-		(select NAME_NM from NAMING where GD_LIST.PD_SCATE = NAMING.NAME_CD) PD_SCATE, PD_IMAGE, PD_MAKER, PD_NARA, PD_SIZE, PD_COLOR, PD_INPR, PD_OUTPR, PDDAY
-		from GD_LIST
-		where
-	
-		]]>    
-		    <if test="keyword != null">
-		    
-			    PD_NAME like '%' || #{keyword} || '%' and
-			    
-		    </if>
-		<![CDATA[    
-		    rownum <= #{pageNum} * #{amount} 
-		    )
-		where rn > (#{pageNum} -1) * #{amount}		  	
-  		]]>
-  	</select>
+	<select id="goodsGetList" resultType="com.dongkoo.model.GoodsVO">
+	    <![CDATA[
+	    select * from (
+	    select /*+INDEX_DESC(GD_LIST SYS_C008774*/ rownum as rn, PDNO, PD_NAME,
+	    (select NAME_NM from NAMING where GD_LIST.PD_SCATE = NAMING.NAME_CD) PD_SCATE, PD_IMAGE, PD_MAKER, PD_NARA, PD_SIZE, PD_COLOR, PD_INPR, PD_OUTPR, PDDAY
+	    from GD_LIST
+	    where ID = #{ID}
+	    ]]>
+	    <if test="cri.keyword != null">
+	        <![CDATA[PD_NAME like '%' || #{cri.keyword} || '%' and ]]>
+	    </if>
+	    <![CDATA[ rownum <= #{cri.pageNum} * #{cri.amount} )
+	    where rn > (#{cri.pageNum} -1) * #{cri.amount}
+	    ]]>
+	</select>
   	
   	
   	<!-- 상품 총 개수 -->
@@ -47,8 +42,8 @@
   	
   		select count(*) from GD_LIST
   		
-  		<if test="keyword != null">
-  			where PD_NAME like '%' || #{keyword} || '%'
+  		<if test="cri.keyword != null">
+  			where PD_NAME like '%' || #{cri.keyword} || '%'
   		</if>
   		
   	</select>

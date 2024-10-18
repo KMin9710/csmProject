@@ -66,8 +66,12 @@ public class GoodsController {
 	
 	//상품 조회 페이지 이동
 	@RequestMapping(value = "/gdList", method = RequestMethod.GET)
-	public void goodsListGET(Criteria cri, Model model) {
-		List<GoodsVO> list = goodsService.goodsGetList(cri);
+	public void goodsListGET(Criteria cri, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO) session.getAttribute("member");
+		String ID = mvo.getID();
+		
+		List<GoodsVO> list = goodsService.goodsGetList(cri, ID);
 		
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);
@@ -84,8 +88,8 @@ public class GoodsController {
 	
 	//상품 상세 조회 페이지 이동
 	@RequestMapping(value = "/gdDetail", method = RequestMethod.GET)
-	public void goodsDetailGET(Criteria cri, Model model) throws Exception {
-		List<GoodsVO> list = goodsService.goodsGetList(cri);
+	public void goodsDetailGET(String ID, Criteria cri, Model model) throws Exception {
+		List<GoodsVO> list = goodsService.goodsGetList(cri, ID);
 		
 		if(!list.isEmpty()) {
 			model.addAttribute("list", list);

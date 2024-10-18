@@ -200,8 +200,7 @@ $('.name_input').on("propertychange change keyup paste input", function() {
 	var ID = $('#userId').val();
 	var name = $('.name_input').val();
 	
-	var data={ID : ID,
-			MK_NAME : name};
+	var data={ID : ID, MK_NAME : name};
 	
 	$.ajax({
 		type : "post",

@@ -18,7 +18,7 @@ public interface GoodsService {
 	public List<NamingVO> cateList();
 
 	//제품 리스트
-	public List<GoodsVO> goodsGetList(Criteria cri);
+	public List<GoodsVO> goodsGetList(Criteria cri, String ID);
 	
 	//제품 총 갯수
 	public int goodsGetTotal(Criteria cri);

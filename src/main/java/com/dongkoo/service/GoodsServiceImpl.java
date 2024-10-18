@@ -58,10 +58,10 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	//제품 리스트
 	@Override
-	public List<GoodsVO> goodsGetList(Criteria cri) {
+	public List<GoodsVO> goodsGetList(Criteria cri, String ID) {
 		log.info("goodsGetTotalList()...");
 		
-		List<GoodsVO> list = mapper.goodsGetList(cri);
+		List<GoodsVO> list = mapper.goodsGetList(cri, ID);
 		
 		for(GoodsVO vo : list) {
 			String PDNO = vo.getPDNO();

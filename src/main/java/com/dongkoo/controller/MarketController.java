@@ -44,10 +44,10 @@ public class MarketController {
 		//로그인 체크
 		HttpSession session = request.getSession();
 		MemberVO mvo = (MemberVO)session.getAttribute("member");
-		
-		String loginID = mvo.getID();
-		market.setID(loginID);
-		
+		if (mvo != null) {
+			String loginID = mvo.getID();
+			market.setID(loginID);
+		}
 		//매장 등록
 		marketservice.addMarket(market);
 		
@@ -57,10 +57,9 @@ public class MarketController {
 	//매장명 중복 검사
 	@RequestMapping(value="/marketNameChk", method=RequestMethod.POST)
 	@ResponseBody
-	public String marketNameChkPOST(HttpSession session, MarketVO market) throws Exception {
-		// 세션에서 로그인한 사용자의 ID를 가져옴
-		String userId = (String) session.getAttribute("userId");
-
+	public String marketNameChkPOST(MarketVO market, HttpServletRequest request) throws Exception {
+		
+		String userId = request.getParameter("ID");
 		market.setID(userId);
 		
 		int result = marketservice.nameCheck(market);
