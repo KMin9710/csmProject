@@ -2,6 +2,8 @@ package com.dongkoo.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.dongkoo.model.AttachImageVO;
 import com.dongkoo.model.Criteria;
 import com.dongkoo.model.GoodsVO;
@@ -16,7 +18,7 @@ public interface GoodsMapper {
 	public List<NamingVO> cateList();
 	
 	//제품 리스트
-	public List<GoodsVO> goodsGetList(Criteria cri, String ID);
+	public List<GoodsVO> goodsGetList(@Param("cri") Criteria cri, @Param("ID") String ID);
 	
 	//제품 총 개수
 	public int goodsGetTotal(Criteria cri);
