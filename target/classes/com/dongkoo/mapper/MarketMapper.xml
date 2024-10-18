@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.dongkoo.mapper.MarketMapper">
+	<!-- 매장 등록 -->
+	<insert id="addMarket" parameterType="com.dongkoo.model.MarketVO">
+		
+		<selectKey order="BEFORE" keyProperty="MKNO" resultType="int">
+		select
+   			to_number(to_char(sysdate, 'YYMMDD') || nvl(to_char(max(substr(MKNO,7))),'00'))+1
+		from
+    		MK_SUSI
+		where
+    		to_char(MKDAY, 'YYYYMMDD')=to_char(sysdate,'YYYYMMDD')
+		</selectKey>
+		
+		insert
+			into MK_SUSI(ID, MKNO, MK_NAME, MK_BUSNUM, MK_TEL, MK_ADDR1, MK_ADDR2, MK_ADDR3, MK_INDU, MK_TIME, MKDAY, MK_IMAGE)
+		values
+			(#{ID}, #{MKNO}, #{MK_NAME}, #{MK_BUSNUM}, #{MK_TEL}, #{MK_ADDR1}, #{MK_ADDR2}, #{MK_ADDR3}, #{MK_INDU}, #{MK_TIME}, sysdate, #{MK_IMAGE})
+	</insert>
+	
+	<!-- 마켓 삭제 -->
+	<delete id="deleteMarket">
+	
+		delete from MK_SUSI where MKNO=#{MKNO}
+	
+	</delete>
+	
+	<!-- 마켓 목록 -->
+	<select id="getMarket" resultType="com.dongkoo.model.MarketVO">
+		
+		select ID, MKNO, MK_NAME, MK_BUSNUM from MK_SUSI where ID=#{ID}
+		
+	</select>
+	
+	<!-- 마켓 확인 -->
+	<select id="checkMarket" resultType="com.dongkoo.model.MarketVO">
+	
+		select * from MK_SUSI
+		where ID = #{ID}
+	
+	</select>
+	
+	
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="nameCheck" resultType="int">
+	
+		SELECT COUNT(*) FROM MK_SUSI WHERE ID = #{ID} AND MK_NAME = #{MK_NAME}
+		
+	</select>
+	
+	
+	</mapper>
+  
+  
